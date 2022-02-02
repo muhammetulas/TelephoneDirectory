@@ -1,4 +1,10 @@
+using Microsoft.EntityFrameworkCore;
+using TelephoneDirectory.Data.Models;
+
 var builder = WebApplication.CreateBuilder(args);
+
+//Add Migrations Configuration.
+builder.Services.AddDbContext<TelephoneDirectoryContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MyPostgreSQLDbConnection"), b => b.MigrationsAssembly("TelephoneDirectory.Data")));
 
 // Add services to the container.
 
