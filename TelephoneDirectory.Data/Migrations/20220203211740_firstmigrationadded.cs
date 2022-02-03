@@ -5,7 +5,7 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace TelephoneDirectory.Data.Migrations
 {
-    public partial class initaldatabase : Migration
+    public partial class firstmigrationadded : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -15,6 +15,7 @@ namespace TelephoneDirectory.Data.Migrations
                 {
                     InformationId = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
+                    UserId = table.Column<int>(type: "integer", nullable: false),
                     UserInformationType = table.Column<string>(type: "varchar(50)", nullable: false),
                     InformationContent = table.Column<string>(type: "text", nullable: false)
                 },
@@ -31,33 +32,21 @@ namespace TelephoneDirectory.Data.Migrations
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
                     Name = table.Column<string>(type: "text", nullable: false),
                     SurName = table.Column<string>(type: "text", nullable: false),
-                    FirmName = table.Column<string>(type: "text", nullable: false),
-                    UserInformationInformationId = table.Column<int>(type: "integer", nullable: false)
+                    FirmName = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.Uuid);
-                    table.ForeignKey(
-                        name: "FK_Users_UserInformations_UserInformationInformationId",
-                        column: x => x.UserInformationInformationId,
-                        principalTable: "UserInformations",
-                        principalColumn: "InformationId",
-                        onDelete: ReferentialAction.Cascade);
                 });
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Users_UserInformationInformationId",
-                table: "Users",
-                column: "UserInformationInformationId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Users");
+                name: "UserInformations");
 
             migrationBuilder.DropTable(
-                name: "UserInformations");
+                name: "Users");
         }
     }
 }
