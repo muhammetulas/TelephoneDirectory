@@ -11,8 +11,8 @@ using TelephoneDirectory.Data.Models;
 namespace TelephoneDirectory.Data.Migrations
 {
     [DbContext(typeof(TelephoneDirectoryContext))]
-    [Migration("20220202202113_initaldatabase")]
-    partial class initaldatabase
+    [Migration("20220203211740_firstmigrationadded")]
+    partial class firstmigrationadded
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -43,12 +43,7 @@ namespace TelephoneDirectory.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<int>("UserInformationInformationId")
-                        .HasColumnType("integer");
-
                     b.HasKey("Uuid");
-
-                    b.HasIndex("UserInformationInformationId");
 
                     b.ToTable("Users");
                 });
@@ -65,6 +60,9 @@ namespace TelephoneDirectory.Data.Migrations
                         .IsRequired()
                         .HasColumnType("text");
 
+                    b.Property<int>("UserId")
+                        .HasColumnType("integer");
+
                     b.Property<string>("UserInformationType")
                         .IsRequired()
                         .HasColumnType("varchar(50)");
@@ -72,17 +70,6 @@ namespace TelephoneDirectory.Data.Migrations
                     b.HasKey("InformationId");
 
                     b.ToTable("UserInformations");
-                });
-
-            modelBuilder.Entity("TelephoneDirectory.Data.Entities.User", b =>
-                {
-                    b.HasOne("TelephoneDirectory.Data.Entities.UserInformation", "UserInformation")
-                        .WithMany()
-                        .HasForeignKey("UserInformationInformationId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
-                    b.Navigation("UserInformation");
                 });
 #pragma warning restore 612, 618
         }

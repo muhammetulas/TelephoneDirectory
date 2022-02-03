@@ -8,6 +8,7 @@ namespace TelephoneDirectory.Data.Entities
     {
         [Key]
         public int InformationId { get; set; }
+        public int UserId { get; set; }
         [Column(TypeName = "varchar(50)")]
         public UserInformationTypes UserInformationType { get; set; }
         public string InformationContent { get; set; }

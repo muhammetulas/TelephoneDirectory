@@ -5,7 +5,11 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelephoneDirectory", "TelephoneDirectory\TelephoneDirectory.csproj", "{14504294-EE52-4246-A99B-4835CB3B9D31}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TelephoneDirectory.Data", "TelephoneDirectory.Data\TelephoneDirectory.Data.csproj", "{46BC9FFF-813C-478C-A3E3-A0AC29EDC138}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "TelephoneDirectory.Data", "TelephoneDirectory.Data\TelephoneDirectory.Data.csproj", "{46BC9FFF-813C-478C-A3E3-A0AC29EDC138}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Report", "Report", "{B16BA452-46EB-4C34-AE4C-74301C2B476F}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "User", "User", "{089C2912-05F1-41A3-B496-4AD34735FE5C}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -24,6 +28,10 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{14504294-EE52-4246-A99B-4835CB3B9D31} = {089C2912-05F1-41A3-B496-4AD34735FE5C}
+		{46BC9FFF-813C-478C-A3E3-A0AC29EDC138} = {089C2912-05F1-41A3-B496-4AD34735FE5C}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {98610D32-5EB1-4956-9C6D-CEBB5E751947}
