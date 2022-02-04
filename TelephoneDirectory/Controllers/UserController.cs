@@ -26,19 +26,22 @@ namespace TelephoneDirectory.Controllers
         [HttpDelete("delete")]
         public IActionResult DeleteUser(int userId)
         {
-            return Ok(_userService.GetUsers());
+            _userService.Delete(userId);
+            return Ok("Success");
         }
 
         [HttpPost("add-information")]
-        public IActionResult AddInformationToUser(int userId)
+        public IActionResult AddInformationToUser(UserInformationRequest userInformationRequest)
         {
-            return Ok(_userService.GetUsers());
+            _userService.AddUserInfrmation(userInformationRequest);
+            return Ok("Success");
         }
 
         [HttpDelete("delete-information")]
         public IActionResult DeleteInformationToUser(int userId, int informationId)
         {
-            return Ok(_userService.GetUsers());
+            _userService.DeleteUserInfrmation(userId, informationId);
+            return Ok("Success");
         }
 
         [HttpGet("list")]
