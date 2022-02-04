@@ -1,5 +1,6 @@
 ﻿using TelephoneDirectory.Data.Entities;
 using TelephoneDirectory.Data.Entities.ApiRequest;
+using TelephoneDirectory.Data.Entities.ApiResponse;
 using TelephoneDirectory.Data.Models;
 using TelephoneDirectory.Services.Interfaces;
 
@@ -37,7 +38,7 @@ namespace TelephoneDirectory.Services.Repositories
 
         }
 
-        public CreateUserRequest? GetUserById(int userId)
+        public UserResponse? GetUserById(int userId)
         {
             using var context = new TelephoneDirectoryContext();
             var user = context.Users.FirstOrDefault(x => x.Uuid == userId);
@@ -46,24 +47,13 @@ namespace TelephoneDirectory.Services.Repositories
             {
                 var userInformations = context.UserInformations.Where(x => x.UserId == user.Uuid).ToList();
 
-                var response = new CreateUserRequest
+                return new UserResponse
                 {
                     FirmName = user.FirmName,
                     Name = user.Name,
-                    SurName = user.SurName
+                    SurName = user.SurName,
+                    UserInformations = userInformations
                 };
-
-                foreach (var item in userInformations)
-                {
-                    response.UserInformations.Add(new UserInformationRequest
-                    {
-                        InformationContent = item.InformationContent,
-                        UserId = item.UserId,
-                        UserInformationType = item.UserInformationType
-                    });
-                }
-
-                return response;
             }
             else
             {
@@ -87,9 +77,59 @@ namespace TelephoneDirectory.Services.Repositories
             }
         }
 
+        public void AddUserInfrmation(UserInformationRequest userInformationRequest)
+        {
+            using var context = new TelephoneDirectoryContext();
+
+            var user = context.Users.FirstOrDefault(x => x.Uuid == userInformationRequest.UserId);
+
+            if(user != null)
+            {
+                context.UserInformations.Add(new UserInformation
+                {
+                    UserId = userInformationRequest.UserId,
+                    InformationContent = userInformationRequest.InformationContent,
+                    UserInformationType = userInformationRequest.UserInformationType
+                });
+
+                context.SaveChanges();
+            }
+            else
+            {
+                throw new Exception("User not found");
+            }
+        }
+
+        public void DeleteUserInfrmation(int userId, int informationId)
+        {
+            using var context = new TelephoneDirectoryContext();
+
+            var user = context.Users.FirstOrDefault(x => x.Uuid == userId);
+
+            if (user != null)
+            {
+                var information = context.UserInformations.FirstOrDefault(x => x.InformationId == informationId && x.UserId == userId);
+
+                if(information != null)
+                {
+                    context.UserInformations.Remove(information);
+                    context.SaveChanges();
+                }
+                else
+                {
+                    throw new Exception("User or Information not found");
+                }
+            }
+            else
+            {
+                throw new Exception("User not found");
+            }
+        }
+
         public IList<User> GetUsers()
         {
-            throw new NotImplementedException();
+            using var context = new TelephoneDirectoryContext();
+            return context.Users.ToList();
         }
     }
 }
