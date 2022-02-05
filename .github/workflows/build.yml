@@ -40,7 +40,15 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
-          exclusions: ..\..\..\Report\ReportService.Data\**, ..\..\..\Report\ReportService.Messaging\**, ..\..\..\User\TelephoneDirectory.Data\**, ..\..\..\User\TelephoneDirectory\Program.cs, ..\..\..\User\TelephoneDirectory\appsettings.json, ..\..\..\User\TelephoneDirectory\Properties\**, ..\..\..\Report\ReportService\Program.cs, ..\..\..\Report\ReportService\appsettings.json, ..\..\..\Report\ReportService\Properties\**
+          exclusions: ..\..\..\Report\ReportService.Data\**,
+                      ..\..\..\Report\ReportService.Messaging\**,
+                      ..\..\..\User\TelephoneDirectory.Data\**,
+                      ..\..\..\User\TelephoneDirectory\Program.cs,
+                      ..\..\..\User\TelephoneDirectory\appsettings.json,
+                      ..\..\..\User\TelephoneDirectory\Properties\**,
+                      ..\..\..\Report\ReportService\Program.cs,
+                      ..\..\..\Report\ReportService\appsettings.json,
+                      ..\..\..\Report\ReportService\Properties\**
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
@@ -56,3 +64,4 @@ jobs:
           .\.sonar\scanner\dotnet-sonarscanner begin /k:"muhammetulas_TelephoneDirectory" /o:"muhammetulas" /d:sonar.login="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.login="${{ secrets.SONAR_TOKEN }}"
+          
