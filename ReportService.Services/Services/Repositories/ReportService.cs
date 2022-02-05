@@ -29,7 +29,6 @@ namespace ReportService.Services.Repositories
             context.SaveChanges();
 
             await Task.Run(() => PrepareReport(location, report));
-
         }
 
         private void PrepareReport(string location, Report report)
