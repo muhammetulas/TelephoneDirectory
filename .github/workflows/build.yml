@@ -40,7 +40,7 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
-          exclusions: ..\..\..\Report\ReportService.Data\**
+          exclusions: ..\..\..\Report\ReportService.Data\**, ..\..\..\Report\ReportSrvice.Data\Migrations\**
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
