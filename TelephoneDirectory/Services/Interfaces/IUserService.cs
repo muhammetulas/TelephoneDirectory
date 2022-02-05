@@ -12,5 +12,6 @@ namespace TelephoneDirectory.Services.Interfaces
         public void Delete(int userId);
         public void AddUserInfrmation(UserInformationRequest userInformationRequest);
         public void DeleteUserInfrmation(int userId, int informationId);
+        IList<UserInformation> GetAllUserInformationsData();
     }
 }

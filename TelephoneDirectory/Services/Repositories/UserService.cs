@@ -131,5 +131,11 @@ namespace TelephoneDirectory.Services.Repositories
             using var context = new TelephoneDirectoryContext();
             return context.Users.ToList();
         }
+
+        public IList<UserInformation> GetAllUserInformationsData()
+        {
+            using var context = new TelephoneDirectoryContext();
+            return context.UserInformations.ToList();
+        }
     }
 }

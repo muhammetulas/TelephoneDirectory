@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\ReportSrvice.Data\ReportService.Data.csproj" />
+    <ProjectReference Include="..\TelephoneDirectory\TelephoneDirectory.csproj" />
   </ItemGroup>
 
 </Project>
