@@ -19,35 +19,24 @@ namespace ReportService.Controllers
             _reportRequestSender = reportRequestSender;
         }
 
-        [HttpGet]
-        public Task<List<Report>> Get()
+        [HttpPost("create-report")]
+        public async Task<IActionResult> CreateReport(string location)
         {
-            return _reportService.GetAllReports();
+            await _reportService.CreateReport(location);
+
+            return Ok("Success");
         }
 
-        [HttpGet("{id}")]
-        public Task<ReportDetail> Get(int id)
+        [HttpGet("get-reports")]
+        public IActionResult GetAllReports()
         {
-            return _reportService.GetReportDetail(id);
+            return Ok(_reportService.GetAllReports());
         }
 
-
-        [HttpPost]
-        public async Task Post(string location)
+        [HttpGet("get-report-details")]
+        public IActionResult GetReportDetails(int reportId)
         {
-            await _reportRequestSender.SendReportRequest(location);
-        }
-
-        [HttpPost, Route("add-detail")]
-        public async Task AddDetail([FromBody] DetailNotificationRequest detailNotificationRequest)
-        {
-            await _reportService.AddDetail(detailNotificationRequest);
-        }
-
-        [HttpDelete("delete-detail/{id}")]
-        public async Task DeleteDetail(int id)
-        {
-            await _reportService.DeleteDetail(id);
+            return Ok(_reportService.GetReportDetail(reportId));
         }
     }
 }

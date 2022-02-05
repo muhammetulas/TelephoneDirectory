@@ -1,34 +1,73 @@
 ﻿using ReportService.Services.Interfaces;
 using ReportService.Data.Entities.ApiRequest;
 using ReportService.Data.Models;
+using TelephoneDirectory.Services.Interfaces;
+using TelephoneDirectory.Data.Entities;
 
 namespace ReportService.Services.Repositories
 {
     public class ReportService : IReportService
     {
-        public Task AddDetail(DetailNotificationRequest reportDetail)
+        private readonly IUserService _userService;
+
+        public ReportService(IUserService userService)
         {
-            throw new NotImplementedException();
+            _userService = userService;
         }
 
-        public Task CreateReport(string location)
+        public async Task CreateReport(string location)
         {
-            throw new NotImplementedException();
+            using var context = new ReportServiceDbContext();
+
+            var report = new Report
+            {
+                RequestedDate = DateTime.UtcNow,
+                Status = Data.Helpers.Enums.ReportStatus.Prepared
+            };
+            context.Reports.Add(report);
+
+            context.SaveChanges();
+
+            await Task.Run(() => PrepareReport(location, report));
+
         }
 
-        public Task DeleteDetail(int detailId)
+        private void PrepareReport(string location, Report report)
         {
-            throw new NotImplementedException();
+            using var context = new ReportServiceDbContext();
+
+            var userDetail = _userService.GetAllUserInformationsData();
+            var userDetailByLocation = userDetail.Where(x => x.UserInformationType == TelephoneDirectory.Data.Helpers.Enums.UserInformationTypes.Location && x.InformationContent == location);
+
+            int recordedPhoneNumberCount = 0;
+
+            foreach (var item in userDetailByLocation)
+            {
+                if(userDetail.Any(x => x.UserId == item.UserId && x.UserInformationType == TelephoneDirectory.Data.Helpers.Enums.UserInformationTypes.PhoneNumber && !string.IsNullOrEmpty(x.InformationContent)))
+                {
+                    recordedPhoneNumberCount++;
+                }
+            }
+
+            context.ReportDetails.Add(new ReportDetail
+            {
+                ReportId = report.Uuid,
+                Location = location,
+                TotalPhoneNumberCount = recordedPhoneNumberCount,
+                TotalUserCount = userDetailByLocation.Count()
+            });
+
+            context.SaveChanges();
         }
 
-        public async Task<List<Report>> GetAllReports()
+        public IList<Report> GetAllReports()
         {
             using var context = new ReportServiceDbContext();
 
             return context.Reports.ToList();
         }
 
-        public Task<ReportDetail> GetReportDetail(int reportId)
+        public ReportDetail GetReportDetail(int reportId)
         {
             throw new NotImplementedException();
         }

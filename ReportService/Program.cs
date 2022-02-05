@@ -4,6 +4,8 @@ using ReportService.API.Messaging.Receiver;
 using ReportService.API.Messaging.Sender;
 using ReportService.Data.Models;
 using ReportService.Services.Interfaces;
+using TelephoneDirectory.Services.Interfaces;
+using TelephoneDirectory.Services.Repositories;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -15,6 +17,7 @@ builder.Services.Configure<RabbitMQConfiguration>(serviceClientSettingsConfig);
 builder.Services.AddDbContext<ReportServiceDbContext>(options => options.UseNpgsql(builder.Configuration.GetConnectionString("MyPostgreSQLDbConnection"), b => b.MigrationsAssembly("ReportService.Data")));
 builder.Services.AddScoped<DbContext>(provider => provider.GetService<ReportServiceDbContext>());
 builder.Services.AddScoped<IReportService, ReportService.Services.Repositories.ReportService>();
+builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddSingleton<IReportRequestSender, ReportRequestSender>();
 
 builder.Services.AddControllers();

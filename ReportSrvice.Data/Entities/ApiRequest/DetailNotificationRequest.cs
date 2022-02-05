@@ -8,5 +8,6 @@ namespace ReportService.Data.Entities.ApiRequest
 {
     public class DetailNotificationRequest
     {
+
     }
 }
