@@ -49,7 +49,8 @@ jobs:
                       ..\..\..\User\TelephoneDirectory\Properties\**,
                       ..\..\..\Report\ReportSrvice\Program.cs,
                       ..\..\..\Report\ReportSrvice\appsettings.json,
-                      ..\..\..\Report\ReportSrvice\Properties\**
+                      ..\..\..\Report\ReportSrvice\Properties\**,
+                      ..\..\..\Report\ReportService.Test\**
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
