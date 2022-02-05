@@ -12,8 +12,8 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        operating-system: [ubuntu-latest, windows-latest, macOS-latest]
-        dotnet-version: ['2.1', '2.2', '3.0', '3.1', '5.0', '6.0']
+        operating-system: [windows-latest]
+        dotnet-version: ['6.0']
     steps:
       - name: Set up JDK 11
         uses: actions/setup-java@v1
