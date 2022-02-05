@@ -40,7 +40,16 @@ jobs:
           path: .\.sonar\scanner
           key: ${{ runner.os }}-sonar-scanner
           restore-keys: ${{ runner.os }}-sonar-scanner
-          exclusions: ..\..\..\Report\ReportService.Data\**, ..\..\..\Report\ReportSrvice.Data\Migrations\**, ..\..\..\Report\ReportService.Messaging\**, ..\..\..\User\TelephoneDirectory.Data\**, ..\..\..\User\TelephoneDirectory\Program.cs, ..\..\..\User\TelephoneDirectory\appsettings.json, ..\..\..\User\TelephoneDirectory\Properties\**, ..\..\..\Report\ReportSrvice\Program.cs, ..\..\..\Report\ReportSrvice\appsettings.json, ..\..\..\Report\ReportSrvice\Properties\**
+          exclusions: ..\..\..\Report\ReportService.Data\**,
+                      ..\..\..\Report\ReportSrvice.Data\Migrations\**,
+                      ..\..\..\Report\ReportService.Messaging\**,
+                      ..\..\..\User\TelephoneDirectory.Data\**,
+                      ..\..\..\User\TelephoneDirectory\Program.cs,
+                      ..\..\..\User\TelephoneDirectory\appsettings.json,
+                      ..\..\..\User\TelephoneDirectory\Properties\**,
+                      ..\..\..\Report\ReportSrvice\Program.cs,
+                      ..\..\..\Report\ReportSrvice\appsettings.json,
+                      ..\..\..\Report\ReportSrvice\Properties\**
       - name: Install SonarCloud scanner
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
