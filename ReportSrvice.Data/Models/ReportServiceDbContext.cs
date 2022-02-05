@@ -1,9 +1,12 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 
 namespace ReportService.Data.Models
 {
     public class ReportServiceDbContext : DbContext
     {
+        private readonly IConfiguration configuration;
+
         public ReportServiceDbContext(DbContextOptions<ReportServiceDbContext> options) : base(options) { }
         public ReportServiceDbContext()
         {
@@ -12,7 +15,7 @@ namespace ReportService.Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
-            dbContextOptionsBuilder.UseNpgsql(@"Server=127.0.0.1;Port=5432;Database=ReportDatabase;User Id=postgres;Password=123456;");
+            dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("MyPostgreSQLDbConnection"));
         }
 
         public DbSet<Report> Reports { get; set; }

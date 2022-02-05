@@ -1,10 +1,13 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Configuration;
 using TelephoneDirectory.Data.Entities;
 
 namespace TelephoneDirectory.Data.Models
 {
     public class TelephoneDirectoryContext : DbContext
     {
+        private readonly IConfiguration configuration;
+
         public TelephoneDirectoryContext(DbContextOptions<TelephoneDirectoryContext> options) : base(options) { }
         public TelephoneDirectoryContext()
         {
@@ -13,7 +16,7 @@ namespace TelephoneDirectory.Data.Models
 
         protected override void OnConfiguring(DbContextOptionsBuilder dbContextOptionsBuilder)
         {
-            dbContextOptionsBuilder.UseNpgsql(@"Server=127.0.0.1;Port=5432;Database=telephoneDirectory;User Id=postgres;Password=123456;");
+            dbContextOptionsBuilder.UseNpgsql(configuration.GetConnectionString("MyPostgreSQLDbConnection"));
         }
 
         public DbSet<User> Users { get; set; }

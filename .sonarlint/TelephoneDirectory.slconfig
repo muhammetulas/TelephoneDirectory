@@ -1,0 +1,15 @@
+{
+  "ServerUri": "https://sonarcloud.io/",
+  "Organization": {
+    "Key": "muhammetulas",
+    "Name": "muhammetulas"
+  },
+  "ProjectKey": "muhammetulas_TelephoneDirectory",
+  "ProjectName": "TelephoneDirectory",
+  "Profiles": {
+    "CSharp": {
+      "ProfileKey": "AX7LMjY6ERXGOv1clKBs",
+      "ProfileTimestamp": "2021-11-22T10:44:23Z"
+    }
+  }
+}
