@@ -21,9 +21,11 @@ namespace ReportService.Services.Repositories
             throw new NotImplementedException();
         }
 
-        public Task<List<Report>> GetAllReports()
+        public async Task<List<Report>> GetAllReports()
         {
-            throw new NotImplementedException();
+            using var context = new ReportServiceDbContext();
+
+            return context.Reports.ToList();
         }
 
         public Task<ReportDetail> GetReportDetail(int reportId)
