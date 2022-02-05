@@ -37,7 +37,7 @@ namespace ReportService.Test
         }
 
         [Fact]
-        public async Task WhenGetAllReportListShouldNotNull()
+        public void WhenGetAllReportListShouldNotNull()
         {
             var reportController = new ReportController(mockReportService.Object, mockReportRequestSender.Object);
 
@@ -51,6 +51,24 @@ namespace ReportService.Test
             mockReportService.Setup(x => x.GetAllReports()).Returns(response);
 
             var controllerResponse = reportController.GetAllReports();
+
+            Assert.NotNull(controllerResponse);
+        }
+
+        [Fact]
+        public void WhenGetReportDetailShouldNotNull()
+        {
+            var reportController = new ReportController(mockReportService.Object, mockReportRequestSender.Object);
+
+            mockReportService.Setup(x => x.GetReportDetail(It.IsAny<int>())).Returns(new ReportDetail
+            {
+                Location = "TestLocation",
+                ReportId = 1,
+                TotalPhoneNumberCount = 100,
+                TotalUserCount = 100
+            });
+
+            var controllerResponse = reportController.GetReportDetails(1500);
 
             Assert.NotNull(controllerResponse);
         }
