@@ -1,4 +1,5 @@
 using AutoMapper;
+using Microsoft.AspNetCore.Mvc;
 using Moq;
 using ReportService.API.Messaging.Sender;
 using ReportService.Controllers;
@@ -33,7 +34,7 @@ namespace ReportService.Test
 
             var response = await reportController.CreateReport("TestLocation");
 
-            Assert.NotNull(response);
+            Assert.IsType<OkObjectResult>(response);
         }
 
         [Fact]
@@ -52,7 +53,7 @@ namespace ReportService.Test
 
             var controllerResponse = reportController.GetAllReports();
 
-            Assert.NotNull(controllerResponse);
+            Assert.IsType<OkObjectResult>(controllerResponse);
         }
 
         [Fact]
@@ -70,7 +71,7 @@ namespace ReportService.Test
 
             var controllerResponse = reportController.GetReportDetails(1500);
 
-            Assert.NotNull(controllerResponse);
+            Assert.IsType<OkObjectResult>(controllerResponse);
         }
     }
 }
